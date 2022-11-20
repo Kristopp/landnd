@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Header from "../components/header/Header";
+import Banner from "../components/banner/index";
 
 export default function Home() {
   return (
@@ -8,9 +9,8 @@ export default function Home() {
         <title>leanDnd</title>
         <link href="/dist/output.css" rel="stylesheet" />
       </Head>
-      {/*Header*/}
       <Header />
-      {/*Banner*/}
+      <Banner />
     </div>
   );
 }
