@@ -3,7 +3,7 @@ import Head from "next/head";
 import Index from "../components/header";
 import Banner from "../components/banner/index";
 import Card from "../components/card/index";
-import useSwr, {SWRResponse} from "swr";
+import useSWR, {SWRResponse } from "swr";
 
 export type NearByData = {
     img: string;
@@ -15,14 +15,14 @@ export type NearByData = {
 // swr
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+
 export default function Home(): React.ReactElement {
-    const { data, error } = useSwr<NearByData[], Error>(`/api/landingPage`, fetcher);
+    // Use SWR to fetch data from the local API
+    const { data: nearByData, error }: SWRResponse<NearByData, Error> = useSWR("/api/landingPage", fetcher);
+    const parsedNearByData: NearByData[] = JSON.parse(nearByData) as NearByData[];
 
-    console.log('data', data);
-
+    if (!nearByData) return <div>Loading...</div>;
     if (error) return <div>failed to load</div>
-    if (!data) return <div>loading...</div>
-
 
   return (
     <div>
@@ -35,17 +35,8 @@ export default function Home(): React.ReactElement {
             <section className="pt-6">
                 <h2 className="text-4xl text-blue-50 font-semibold pb-5">Find Nearby</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4">
-                    {data.map((item:NearByData) => {
-                        return (
-                            <Card
-                                key={item.location}
-                                cardType="small"
-                                img={item.img}
-                                location={item.location}
-                                distance={item.distance}
-                            />
-                        )
-                    })}
+                     { parsedNearByData && parsedNearByData.map((item: NearByData) => (
+                         <Card key={item.location} img={item.img} location={item.location} distance={item.distance} cardType="large"/>))}
                 </div>
             </section>
 
