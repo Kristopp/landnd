@@ -3,20 +3,27 @@ import Head from "next/head";
 import Index from "../components/header";
 import Banner from "../components/banner/index";
 import Card from "../components/card/index";
-import { server } from "./api/config";
+import useSwr, {SWRResponse} from "swr";
 
-export type PropertyProps = {
+export type NearByData = {
     img: string;
     location: string;
     distance: string;
 }
 
-export type Props = {
-    exploreData: PropertyProps[] | [];
-}
 
-export default function Home({ exploreData }: Props): React.ReactElement {
-    console.log('dasdas', exploreData);
+// swr
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export default function Home(): React.ReactElement {
+    const { data, error } = useSwr<NearByData[], Error>(`/api/landingPage`, fetcher);
+
+    console.log('data', data);
+
+    if (error) return <div>failed to load</div>
+    if (!data) return <div>loading...</div>
+
+
   return (
     <div>
       <Head>
@@ -28,7 +35,7 @@ export default function Home({ exploreData }: Props): React.ReactElement {
             <section className="pt-6">
                 <h2 className="text-4xl text-blue-50 font-semibold pb-5">Find Nearby</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4">
-                    {exploreData?.map((item: PropertyProps) => {
+                    {data.map((item:NearByData) => {
                         return (
                             <Card
                                 key={item.location}
@@ -52,9 +59,9 @@ export default function Home({ exploreData }: Props): React.ReactElement {
   );
 }
 
-export async function getStaticProps(): Promise<{ props: { exploreData: PropertyProps } }> {
+/*export async function getStaticProps(): Promise<{ props: { exploreData: PropertyProps } }> {
     console.log('server', server);
-    const exploreData = await fetch(server).then(
+    const exploreData = await fetch('/api/landingPage').then(
         (res) => res.json() as Promise<PropertyProps>
     );
     return {
@@ -63,4 +70,4 @@ export async function getStaticProps(): Promise<{ props: { exploreData: Property
         }
 
     };
-}
+}*/
