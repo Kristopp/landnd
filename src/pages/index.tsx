@@ -19,6 +19,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export default function Home(): React.ReactElement {
     // Use SWR to fetch data from the local API
     const { data: nearByData, error }: SWRResponse<NearByData, Error> = useSWR("/api/landingPage", fetcher);
+    // @ts-ignore
     const parsedNearByData: NearByData[] = JSON.parse(nearByData) as NearByData[];
 
     if (!nearByData) return <div>Loading...</div>;
