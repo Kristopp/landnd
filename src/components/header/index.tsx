@@ -3,7 +3,7 @@ import headerLogo from "public/icons/main_icon_blue.png";
 import { MagnifyingGlassIcon, GlobeAltIcon, UserCircleIcon, Bars3Icon  } from '@heroicons/react/24/solid'
 
 
-function Header(): JSX.Element {
+function Index(): JSX.Element {
   return (
     <header className="sticky top-0 z-100 grid grid-cols-3 p-5 md:px-10 bg-black border-b-2 border-b-blue-700 md:drop-shadow-xl shadow-blue-400">
       <div className="relative flex items-center h-10 cursor-pointer my-auto w-[160px]">
@@ -27,4 +27,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default Index;

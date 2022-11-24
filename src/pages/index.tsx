@@ -1,16 +1,17 @@
-import Head from "next/head";
-import Header from "../components/header/Header";
-import Banner from "../components/banner/index";
-import urlConfig  from "./api/config";
 import React from "react";
+import Head from "next/head";
+import Index from "../components/header";
+import Banner from "../components/banner/index";
+import Card from "../components/card/index";
+import urlConfig  from "./api/config";
 
-type PropertyProps = {
+export type PropertyProps = {
     img: string;
     location: string;
     distance: string;
 }
 
-type Props = {
+export type Props = {
     exploreData: PropertyProps[];
 }
 
@@ -21,16 +22,30 @@ export default function Home({ exploreData }: Props): React.ReactElement {
       <Head>
         <title>leanDnd</title>
       </Head>
-      <Header />
+      <Index />
       <Banner />
         <main className="max-w-7xl mx-auto px-8 sm:px-16">
             <section className="pt-6">
                 <h2 className="text-4xl text-blue-50 font-semibold pb-5">Find Nearby</h2>
-                {exploreData?.map((item: PropertyProps) => {
-                    return (
-                        <h2 key={item.img}>{item.location}</h2>
-                    )
-                })}
+                <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4">
+                    {exploreData?.map((item: PropertyProps) => {
+                        return (
+                            <Card
+                                key={item.location}
+                                cardType="small"
+                                img={item.img}
+                                location={item.location}
+                                distance={item.distance}
+                            />
+                        )
+                    })}
+                </div>
+            </section>
+
+            <section>
+                <h2 className="text-4xl text-blue-50 font-semibold py-8">Popular picks</h2>
+
+
             </section>
         </main>
     </div>
