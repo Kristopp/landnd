@@ -1,8 +1,4 @@
-const urlConfig = {
-    localUrl: 'http://localhost:3000/api/landingPage',
-    productionUrl: 'https://landing-page-ten.vercel.app/api/landingPage',
-    apiVersion: 'v1',
-    apiPath: 'api',
-}
+const dev = process.env.NODE_ENV !== 'production';
+export const server = dev ? 'http://localhost:3000/api/landingPage' : 'https://landing-page-ten.vercel.app/api/landingPage'
 
-export default urlConfig
+export default server

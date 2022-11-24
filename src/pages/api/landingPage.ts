@@ -1,7 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import nearByData from "../../../data/nearByData.json";
+import path from 'path';
+import { promises as fs } from 'fs';
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const jsonDirectory = path.join(process.cwd(), 'json');
+  //Read the json data file data.json
+  const nearByData = await fs.readFile(jsonDirectory + '/nearByData.json', 'utf8');
+  const popularPicks = await fs.readFile(jsonDirectory + '/popularPicks.json', 'utf8');
+
   try {
     res.status(200).json(nearByData);
 

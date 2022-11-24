@@ -3,7 +3,7 @@ import Head from "next/head";
 import Index from "../components/header";
 import Banner from "../components/banner/index";
 import Card from "../components/card/index";
-import urlConfig  from "./api/config";
+import { server } from "./api/config";
 
 export type PropertyProps = {
     img: string;
@@ -12,7 +12,7 @@ export type PropertyProps = {
 }
 
 export type Props = {
-    exploreData: PropertyProps[];
+    exploreData: PropertyProps[] | [];
 }
 
 export default function Home({ exploreData }: Props): React.ReactElement {
@@ -53,7 +53,8 @@ export default function Home({ exploreData }: Props): React.ReactElement {
 }
 
 export async function getStaticProps(): Promise<{ props: { exploreData: PropertyProps } }> {
-    const exploreData = await fetch(urlConfig.productionUrl).then(
+    console.log('server', server);
+    const exploreData = await fetch(server).then(
         (res) => res.json() as Promise<PropertyProps>
     );
     return {
