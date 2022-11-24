@@ -53,7 +53,7 @@ export default function Home({ exploreData }: Props): React.ReactElement {
 }
 
 export async function getStaticProps(): Promise<{ props: { exploreData: PropertyProps } }> {
-    const exploreData = await fetch(urlConfig.localUrl).then(
+    const exploreData = await fetch(urlConfig.productionUrl).then(
         (res) => res.json() as Promise<PropertyProps>
     );
     return {
