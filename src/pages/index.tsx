@@ -2,28 +2,23 @@ import React from "react";
 import Head from "next/head";
 import Index from "../components/header";
 import Banner from "../components/banner/index";
-import Card from "../components/card/index";
-import useSWR, {SWRResponse } from "swr";
+import Card from "../components/card";
+import fsPromises from 'fs/promises';
+import path from 'path'
 
-export type NearByData = {
+export type NearByProperty = {
     img: string;
     location: string;
     distance: string;
 }
 
+export type Props = {
+    nearby: NearByProperty[];
+}
 
-// swr
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+export default function Home({nearby}: Props): React.ReactElement {
 
-
-export default function Home(): React.ReactElement {
-    // Use SWR to fetch data from the local API
-    const { data: nearByData, error }: SWRResponse<NearByData, Error> = useSWR("/api/landingPage", fetcher);
-    // @ts-ignore
-    const parsedNearByData: NearByData[] = JSON.parse(nearByData) as NearByData[];
-
-    if (!nearByData) return <div>Loading...</div>;
-    if (error) return <div>failed to load</div>
+    console.log('sdas', nearby);
 
   return (
     <div>
@@ -36,7 +31,7 @@ export default function Home(): React.ReactElement {
             <section className="pt-6">
                 <h2 className="text-4xl text-blue-50 font-semibold pb-5">Find Nearby</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4">
-                     { parsedNearByData && parsedNearByData.map((item: NearByData) => (
+                     { nearby && nearby.map((item: NearByProperty) => (
                          <Card key={item.location} img={item.img} location={item.location} distance={item.distance} cardType="large"/>))}
                 </div>
             </section>
@@ -51,15 +46,18 @@ export default function Home(): React.ReactElement {
   );
 }
 
-/*export async function getStaticProps(): Promise<{ props: { exploreData: PropertyProps } }> {
-    console.log('server', server);
-    const exploreData = await fetch('/api/landingPage').then(
-        (res) => res.json() as Promise<PropertyProps>
-    );
+export async function getStaticProps() {
+// Fetch local json data
+    const filePath = path.join(process.cwd(), 'json', 'nearByData.json');
+    const nearByData: Props = await fsPromises
+    .readFile(filePath)
+    .then((data) => JSON.parse(data.toString() || '[]') as Props);
+
+
+
     return {
         props: {
-            exploreData,
+            nearby: nearByData,
         }
-
     };
-}*/
+}
