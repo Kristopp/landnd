@@ -12,13 +12,44 @@ export type NearByProperty = {
     distance: string;
 }
 
-export type Props = {
-    nearby: NearByProperty[];
+export type PopularPicks = {
+    img: string;
+    title: string;
 }
 
-export default function Home({nearby}: Props): React.ReactElement {
+export type Error = {
+    statusCode: number;
+}
 
-    console.log('sdas', nearby);
+export type Props = {
+    nearby: NearByProperty[];
+    popularPicks: PopularPicks[];
+}
+
+export default function Home({nearby, popularPicks, error}: Props): React.ReactElement {
+// load handeling
+    const [loading, setLoading] = React.useState(true);
+    React.useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+    }
+    , []);
+
+    // Load page
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return <div>Something went wrong</div>
+    }
+
+    console.log('sdas', popularPicks);
 
   return (
     <div>
@@ -47,17 +78,28 @@ export default function Home({nearby}: Props): React.ReactElement {
 }
 
 export async function getStaticProps() {
-// Fetch local json data
-    const filePath = path.join(process.cwd(), 'json', 'nearByData.json');
-    const nearByData: Props = await fsPromises
-    .readFile(filePath)
-    .then((data) => JSON.parse(data.toString() || '[]') as Props);
+    const filePathNearBy = path.join(process.cwd(), 'json', 'nearByData.json');
+    const filePathPopular = path.join(process.cwd(), 'json', 'popularPicks.json');
+     // Check if the file exists in the filesystem if not return error
+    try {
+        const nearby = await fsPromises.readFile(filePathNearBy, 'utf-8');
+        const popularPicks = await fsPromises.readFile(filePathPopular, 'utf-8');
 
+        return {
+            props: {
+                nearby: JSON.parse(nearby) as NearByProperty[],
+                popularPicks: JSON.parse(popularPicks) as PopularPicks[],
 
-
-    return {
-        props: {
-            nearby: nearByData,
+            }
         }
-    };
+    } catch (error) {
+        return {
+            props: {
+                error: {
+                    statusCode: 404
+                }
+            }
+        }
+    }
+
 }
