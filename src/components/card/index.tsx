@@ -1,21 +1,32 @@
 import React from 'react';
 import Image from "next/image";
+import clsx from "clsx";
 
 type CardType = "large" | "medium" | "small";
 
 type CardProps = {
+    title?: string
     img: string;
-    location: string;
-    distance: string;
+    location?: string;
+    distance?: string;
     cardType: CardType;
 }
 
-function Card({ img, location, distance, cardType }: CardProps): JSX.Element {
+function Card({title, img, location, distance, cardType }: CardProps): JSX.Element {
+    //I need title to be optional, but I need to pass it in as a prop
+
+    //I need card size change according to the cardType prop
+
+
+
   return (
-    <div className="flex items-center m-2 mt-5 space-x-4 rounded-xl cursor-pointer hover:bg-gray-100 hover:scale-105 transition transform duration-200 ease-out">
-        <div className="relative h-24 w-40">
+    <div className={clsx(cardType === "small" && "flex flex-row" , "flex flex-col items-center m-2 mt-5 space-x-4 rounded-xl cursor-pointer hover:bg-gray-100 hover:scale-105 transition transform duration-300 ease-out")}>
+        <div className={clsx(cardType === "small" && "relative h-24 w-40", cardType === 'medium' && 'relative h-80 w-80' )}>
             <Image alt="Card image" src={img} fill={true} className="rounded-lg"/>
         </div>
+        {cardType === "medium" && (
+            <h3 className="text-2xl mt-3">{title}</h3>
+        )}
         <div>
             <h2>{location}</h2>
             <h3 className="text-gray-500">{distance}</h3>
