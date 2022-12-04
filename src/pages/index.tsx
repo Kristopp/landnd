@@ -1,12 +1,13 @@
 import React from "react";
 import Head from "next/head";
-import Index from "../components/header";
+import NavBar from "../components/header";
 import Banner from "../components/banner/index";
 import Card from "../components/card";
 import fsPromises from 'fs/promises';
 import path from 'path'
 
 export type NearByProperty = {
+    title: string;
     img: string;
     location: string;
     distance: string;
@@ -24,6 +25,7 @@ export type Error = {
 export type Props = {
     nearby: NearByProperty[];
     popularPicks: PopularPicks[];
+    error: Error
 }
 
 export default function Home({nearby, popularPicks, error}: Props): React.ReactElement {
@@ -56,21 +58,23 @@ export default function Home({nearby, popularPicks, error}: Props): React.ReactE
       <Head>
         <title>leanDnd</title>
       </Head>
-      <Index />
+      <NavBar />
       <Banner />
         <main className="max-w-7xl mx-auto px-8 sm:px-16">
             <section className="pt-6">
                 <h2 className="text-4xl text-blue-50 font-semibold pb-5">Find Nearby</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4">
-                     { nearby && nearby.map((item: NearByProperty) => (
-                         <Card key={item.location} img={item.img} location={item.location} distance={item.distance} cardType="large"/>))}
+                     { nearby && nearby?.map((item: NearByProperty) => (
+                         <Card key={item.location} img={item.img} location={item.location} distance={item.distance} cardType="small"/>))}
                 </div>
             </section>
 
             <section>
                 <h2 className="text-4xl text-blue-50 font-semibold py-8">Popular picks</h2>
-
-
+                <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
+                { popularPicks && popularPicks?.map((item: PopularPicks) => (
+                    <Card key={item.title} img={item.img} title={item.title} cardType="medium"/>))}
+                </div>
             </section>
         </main>
     </div>
