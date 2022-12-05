@@ -1,12 +1,12 @@
 import React from 'react';
-import Image from "next/image";
+import Image, {StaticImageData} from "next/image";
 import clsx from "clsx";
 
 type CardType = "large" | "medium" | "small";
 
 type CardProps = {
     title?: string
-    img: string;
+    img: string | StaticImageData;
     location?: string;
     distance?: string;
     cardType: CardType;
@@ -17,11 +17,10 @@ function Card({title, img, location, distance, cardType }: CardProps): JSX.Eleme
 
     //I need card size change according to the cardType prop
 
-
-
+    console.log('img', img);
   return (
-    <div className={clsx(cardType === "small" && "flex flex-row" , "flex flex-col items-center m-2 mt-5 space-x-4 rounded-xl cursor-pointer hover:bg-gray-100 hover:scale-105 transition transform duration-300 ease-out")}>
-        <div className={clsx(cardType === "small" && "relative h-24 w-40", cardType === 'medium' && 'relative h-80 w-80' )}>
+    <div className={clsx(cardType === "small" && "flex flex-row" , "flex flex-col items-center m-2 mt-5 space-x-4 rounded-xl cursor-pointer hover:bg-transparent hover:scale-105 transition transform duration-300 ease-out")}>
+        <div className={clsx(cardType === "small" && "relative h-24 w-40", cardType === 'medium' && 'relative h-80 w-80', cardType === "large" &&  "relative h-96 min-w-[400px]")}>
             <Image alt="Card image" src={img} fill={true} className="rounded-lg"/>
         </div>
         {cardType === "medium" && (
