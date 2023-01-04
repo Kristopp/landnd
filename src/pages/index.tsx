@@ -73,7 +73,7 @@ export default function Home({nearby, popularPicks, error}: Props): React.ReactE
 
             <section>
                 <h2 className="text-4xl text-blue-50 font-semibold py-8">Popular picks</h2>
-                <div className="flex space-x-4 overflow-scroll scrollbar-hide p-3 -ml-3">
+                <div className="flex space-x-3 overflow-auto scroll-smooth scrollbar-hide md:scroll-auto gap-3">
                 { popularPicks && popularPicks?.map((item: PopularPicks) => (
                     <Card key={item.title} img={item.img} title={item.title} cardType="medium"/>))}
                 </div>
