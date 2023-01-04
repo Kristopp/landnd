@@ -3,6 +3,8 @@ import Head from "next/head";
 import NavBar from "../components/header";
 import Banner from "../components/banner/index";
 import Card from "../components/card";
+import bottomBanner from "public/images/bottom-banner.jpg";
+
 import fsPromises from 'fs/promises';
 import path from 'path'
 
@@ -71,11 +73,16 @@ export default function Home({nearby, popularPicks, error}: Props): React.ReactE
 
             <section>
                 <h2 className="text-4xl text-blue-50 font-semibold py-8">Popular picks</h2>
-                <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
+                <div className="flex space-x-3 overflow-auto scroll-smooth scrollbar-hide md:scroll-auto gap-3">
                 { popularPicks && popularPicks?.map((item: PopularPicks) => (
                     <Card key={item.title} img={item.img} title={item.title} cardType="medium"/>))}
                 </div>
             </section>
+            
+            <section>
+                <Card img={bottomBanner} cardType={"large"}/>
+            </section>
+                
         </main>
     </div>
   );

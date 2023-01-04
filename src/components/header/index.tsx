@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon, GlobeAltIcon, UserCircleIcon, Bars3Icon  } from '@
 
 function NavBar(): JSX.Element {
   return (
-    <header className="sticky top-0 z-100 grid grid-cols-3 p-5 md:px-10 bg-zinc-900 border-b-2 border-b-blue-700 md:drop-shadow-xl shadow-blue-400">
+    <header className="relative sticky top-0 z-10 grid grid-cols-3 p-5 md:px-10 bg-zinc-900 border-b-2 border-b-blue-700 md:drop-shadow-xl shadow-blue-400">
       <div className="relative flex items-center h-10 cursor-pointer my-auto w-[160px]">
         <Image src={headerLogo} fill={true} alt="Landnd" />
       </div>
