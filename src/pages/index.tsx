@@ -80,7 +80,7 @@ export default function Home({nearby, popularPicks, error}: Props): React.ReactE
             </section>
             
             <section>
-                <Card img={bottomBanner} cardType={"large"}/>
+                <Card img={bottomBanner} cardType={"large"} title={"Supper outdoors experience"}/>
             </section>
                 
         </main>
