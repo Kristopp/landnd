@@ -7,7 +7,7 @@ import bottomBanner from "public/images/bottom-banner.jpg";
 
 import fsPromises from 'fs/promises';
 import path from 'path'
-import Footer from "../components/Footer";
+import Footer from "../components/footer";
 
 export type NearByProperty = {
     title: string;
