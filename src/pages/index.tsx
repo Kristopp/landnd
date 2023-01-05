@@ -7,6 +7,7 @@ import bottomBanner from "public/images/bottom-banner.jpg";
 
 import fsPromises from 'fs/promises';
 import path from 'path'
+import Footer from "../components/Footer";
 
 export type NearByProperty = {
     title: string;
@@ -80,10 +81,11 @@ export default function Home({nearby, popularPicks, error}: Props): React.ReactE
             </section>
             
             <section>
-                <Card img={bottomBanner} cardType={"large"}/>
+                <Card img={bottomBanner} cardType={"large"} title={"Adventure awaits"}/>
             </section>
                 
         </main>
+        <Footer />
     </div>
   );
 }
