@@ -5,13 +5,17 @@ import { MagnifyingGlassIcon, GlobeAltIcon, UserCircleIcon, Bars3Icon  } from '@
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
-import CalendarDatePicker from "../calendarDatePicker";
 
 
 function NavBar(): JSX.Element {
     const [searchInput, setSearchInput] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    
+    const handleSelect = (ranges: any) => {
+        setStartDate(ranges.selection.startDate);
+        setEndDate(ranges.selection.endDate);
+    }
 
     const selectionRange = {
         startDate: startDate,
@@ -49,7 +53,7 @@ function NavBar(): JSX.Element {
                 />
             </div>
         )}
-        <CalendarDatePicker value={startDate} onChange={() => console.log("hello")}  />
+        <DateRangePicker ranges={[selectionRange]} minDate={new Date()} onChange={handleSelect}  />
     </header>
   );
 }
