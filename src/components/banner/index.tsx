@@ -7,8 +7,8 @@ function Banner(): JSX.Element {
     <div className="relative z-1 h-[300px] sm:h-[400px] lg:h-[500px] xl-[600px] 2xl:h-[700px]">
         <Image src={BannerPic} alt="Banner" fill={true} />
         <div className="absolute top-1/2 w-full text-center ">
-            <p className="text-sm sm:text-lg text-black font-semibold backdrop-blur border-y-2 border-black md:shadow-md">Looking for adventure?</p>
-            <button className="text-black border-2 border-black backdrop-blur font-bold px-12 py-4 mt-4 shadow-md rounded-full md:shadow-md hover:shadow-xl active:scale-90 transition duration-150">
+            <p className="text-sm sm:text-lg text-white font-semibold">Looking for adventure?</p>
+            <button className="text-white text-sm border border-2 border-white bg-black px-6 py-2 rounded-lg mt-5  hover:scale-105 transition transform duration-300 ease-out">
                 We can help
             </button>
         </div>

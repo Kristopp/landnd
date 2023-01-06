@@ -1,9 +1,23 @@
+import { useState } from "react";
 import Image from "next/image";
 import headerLogo from "public/icons/main_icon_blue.png";
 import { MagnifyingGlassIcon, GlobeAltIcon, UserCircleIcon, Bars3Icon  } from '@heroicons/react/24/solid'
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRangePicker } from 'react-date-range';
+import CalendarDatePicker from "../calendarDatePicker";
 
 
 function NavBar(): JSX.Element {
+    const [searchInput, setSearchInput] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
+    const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+        key: 'selection',
+    }
   return (
     <header className="relative sticky top-0 z-10 grid grid-cols-3 p-5 md:px-10 bg-neutral-900 border-b-2 border-b-blue-700 md:drop-shadow-xl shadow-blue-400">
       <div className="relative flex items-center h-10 cursor-pointer my-auto w-[160px]">
@@ -11,7 +25,10 @@ function NavBar(): JSX.Element {
       </div>
         {/*middle => search*/}
         <div className="flex items-center md:border-2 border-blue-800 rounded-full text-blue-500 bg-gray-900">
-            <input className="flex-grow pl-5 bg-transparent outline-none placeholder:text-blue-500 placeholder:text-sm" type="text" placeholder="Search here..."/>
+            <input className="flex-grow pl-5 bg-transparent outline-none placeholder:text-blue-500 placeholder:text-sm"
+                   type="text" placeholder="Search here..."
+                   value={searchInput}
+                   onChange={(e) => setSearchInput(e.target.value)} />
             <MagnifyingGlassIcon className="hidden md:inline-flex h-8 bg-transparent rounded-full p-1 cursor-pointer md:mx-2"/>
         </div>
       {/*right*/}
@@ -23,6 +40,16 @@ function NavBar(): JSX.Element {
                 <UserCircleIcon className="h-6" />
           </div>
       </div>
+        {searchInput && (
+            <div className="flex flex-col col-span-3 mx-auto">
+                {/*date values will be passed from navbar*/}
+                <DateRangePicker ranges={[selectionRange]}
+                                 key={selectionRange.key}
+
+                />
+            </div>
+        )}
+        <CalendarDatePicker value={startDate} onChange={() => console.log("hello")}  />
     </header>
   );
 }
