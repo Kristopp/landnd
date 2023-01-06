@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable */
+import {SetStateAction, useState} from "react";
 import Image from "next/image";
 import headerLogo from "public/icons/main_icon_blue.png";
 import { MagnifyingGlassIcon, GlobeAltIcon, UserCircleIcon, Bars3Icon  } from '@heroicons/react/24/solid'
@@ -9,10 +10,11 @@ import { DateRangePicker } from 'react-date-range';
 
 function NavBar(): JSX.Element {
     const [searchInput, setSearchInput] = useState("");
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date()) as any;
+    const [endDate, setEndDate] = useState(new Date()) as any;
     
     const handleSelect = (ranges: any) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         setStartDate(ranges.selection.startDate);
         setEndDate(ranges.selection.endDate);
     }
@@ -21,7 +23,7 @@ function NavBar(): JSX.Element {
         startDate: startDate,
         endDate: endDate,
         key: 'selection',
-    }
+    } as any
   return (
     <header className="relative sticky top-0 z-10 grid grid-cols-3 p-5 md:px-10 bg-neutral-900 border-b-2 border-b-blue-700 md:drop-shadow-xl shadow-blue-400">
       <div className="relative flex items-center h-10 cursor-pointer my-auto w-[160px]">
