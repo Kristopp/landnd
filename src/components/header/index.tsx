@@ -3,9 +3,7 @@ import {SetStateAction, useState} from "react";
 import Image from "next/image";
 import headerLogo from "public/icons/main_icon_blue.png";
 import { MagnifyingGlassIcon, GlobeAltIcon, UserCircleIcon, Bars3Icon  } from '@heroicons/react/24/solid'
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { DateRangePicker } from 'react-date-range';
+import Calendar from "../calendar";
 
 
 function NavBar(): JSX.Element {
@@ -18,11 +16,6 @@ function NavBar(): JSX.Element {
         setEndDate(ranges.selection.endDate);
     }
 
-    const selectionRange = {
-        startDate: startDate,
-        endDate: endDate,
-        key: 'selection',
-    } as any
   return (
     <header className="relative sticky top-0 z-10 grid grid-cols-3 p-5 md:px-10 bg-neutral-900 border-b-2 border-b-blue-700 md:drop-shadow-xl shadow-blue-400">
       <div className="relative flex items-center h-10 cursor-pointer my-auto w-[160px]">
@@ -48,10 +41,7 @@ function NavBar(): JSX.Element {
         {searchInput && (
             <div className="flex flex-col col-span-3 mx-auto">
                 {/*date values will be passed from navbar*/}
-                <DateRangePicker ranges={[selectionRange]}
-                                 key={selectionRange.key}
-
-                />
+                <Calendar />
             </div>
         )}
     </header>
