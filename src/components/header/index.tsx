@@ -14,7 +14,6 @@ function NavBar(): JSX.Element {
     const [endDate, setEndDate] = useState(new Date()) as any;
     
     const handleSelect = (ranges: any) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         setStartDate(ranges.selection.startDate);
         setEndDate(ranges.selection.endDate);
     }
