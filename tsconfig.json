@@ -16,7 +16,7 @@
     "incremental": true
   },
   "include": [
-    "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "next-env.d.ts", "**/*.ts", "**/*.tsx", "./tailwind.config.js"],
   "exclude": [
     "earthdnd/node_modules"
   ]

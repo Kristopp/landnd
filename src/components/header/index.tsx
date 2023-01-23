@@ -55,7 +55,6 @@ function NavBar(): JSX.Element {
                 />
             </div>
         )}
-        <DateRangePicker ranges={[selectionRange]} minDate={new Date()} onChange={handleSelect}  />
     </header>
   );
 }

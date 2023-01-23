@@ -6,11 +6,10 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint","prettier"],
   "parserOptions": {
-    "project": ["./tsconfig.json"] // Specify it only for TypeScript files
+    "project": "./tsconfig.json"
   },
+  "plugins": ["@typescript-eslint","prettier"],
   "rules": {
     "@typescript-eslint/no-unsafe-argument": "warn"
   }
